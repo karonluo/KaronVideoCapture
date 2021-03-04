@@ -1,30 +1,58 @@
-## Karon Video Capture
+## Karon Video Capture API
 
-用于抓取视频帧，支持 rtsp\rtmp\video file 等
+### 描述
 
-支持 hevc (h265)\h264 解码
+用于抓取视频帧，支持 rtsp\rtmp\video file 等协议格式
 
-硬件解码支持: Intel 核心显卡\VAAPI(libva) 
+支持 hevc(h265)\h264 硬件解码
 
-作者： Karon Luo
+### 硬件解码支持 
 
-日期：2021/03/02
+Intel 核心显卡\VAAPI(libva) 
 
-本 API 在 以下环境中测试通过
+### 作者
 
-操作系统: Ubuntu 16.04 
+成都云图睿视科技有限公司
 
-SDK及软件依赖项：
+Karon Luo
 
-vlc3.0+(libvlc 3.0+)、 intel media sdk（msdk）、vaapi(libva2.6.0)、ffmpeg、opencv（opencv4.2.0 测试通过，也可以使用其他版本的 OpenCV 但需要重新编译）
+### 编译命令
 
-硬件参数：
+~~~shell
+./build.sh
+~~~
 
-CPU: Intel(R) Celeron(R) CPU N3450 @ 1.10GHz
+编译完成后生成：libKaronVideoCapture.so.4.2.0 (4.2.0 根据 opencv 版本 编译）和 test_kvc (用于测试抓取视频的功能）
 
-GPU: Intel(R) HD Graphics 500
+如果需要关联其他 OpenCV 版本进行编译请修改编译脚本 build.sh 文件
 
-以下是执行 vainfo 的结果:
+### 测试命令
+
+~~~shell
+./test_kvc <rtsp address|video file>
+~~~
+
+### 测试环境信息
+
+#### 操作系统
+
+Ubuntu 16.04 
+
+#### SDK 及软件依赖项：
+
+1. vlc3.0+(libvlc 3.0+)
+2. intel media sdk（msdk）
+3. vaapi(libva2.6.0)
+4. ffmpeg
+5. opencv（opencv4.2.0 测试通过，也可以使用其他版本的 OpenCV 但需要重新编译）
+
+#### 硬件参数：
+
+> CPU: Intel(R) Celeron(R) CPU N3450 @ 1.10GHz
+
+> GPU: Intel(R) HD Graphics 500
+
+#### 执行 vainfo 的结果
 
 ~~~shell
 libva info: VA-API version 1.6.0
@@ -62,24 +90,4 @@ vainfo: Supported profile and entrypoints
       VAProfileHEVCMain               :	VAEntrypointFEI
       VAProfileHEVCMain10             :	VAEntrypointVLD
       VAProfileVP9Profile0            :	VAEntrypointVLD
-~~~
-
-编译命令：
-
-~~~shell
-./build.sh
-~~~
-
-其中编译完成后生成：
-
-libKaronVideoCapture.so.4.2.0 (4.2.0 根据 opencv 版本 编译）
-
-如果需要关联新的 OpenCV 版本进行编译请修改编译脚本 build.sh 文件
-
-test_kvc (用于测试抓取视频的功能）
-
-测试命令：
-
-~~~shell
-./test_kvc <rtsp address|video file>
 ~~~
