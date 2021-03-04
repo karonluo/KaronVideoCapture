@@ -36,7 +36,7 @@ Intel 核心显卡\VAAPI(libva)
 
 Ubuntu 16.04 
 
-#### SDK 及软件依赖项：
+#### SDK 及软件依赖项
 
 1. vlc3.0+(libvlc 3.0+)
 2. intel media sdk（msdk）
@@ -44,7 +44,7 @@ Ubuntu 16.04
 4. ffmpeg
 5. opencv（opencv4.2.0 测试通过，也可以使用其他版本的 OpenCV 但需要重新编译）
 
-#### 硬件参数：
+#### 硬件参数
 
 > CPU: Intel(R) Celeron(R) CPU N3450 @ 1.10GHz
 
