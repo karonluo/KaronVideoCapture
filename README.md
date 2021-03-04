@@ -12,9 +12,7 @@ Intel 核心显卡\VAAPI(libva)
 
 ### 作者
 
-成都云图睿视科技有限公司
-
-Karon Luo
+成都云图睿视科技有限公司 - Karon Luo
 
 ### 编译命令
 
