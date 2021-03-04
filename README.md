@@ -2,13 +2,67 @@
 
 用于抓取视频帧，支持 rtsp\rtmp\video file 等
 
+支持 hevc (h265)\h264 解码
+
+硬件解码支持: Intel 核心显卡\VAAPI(libva) 
+
 作者： Karon Luo
 
 日期：2021/03/02
 
-依赖：
+本 API 在 以下环境中测试通过
 
-vlc3.0+、 intel media sdk、vaapi(libva)、ffmpeg、opencv
+操作系统: Ubuntu 16.04 
+
+SDK及软件依赖项：
+
+vlc3.0+(libvlc 3.0+)、 intel media sdk（msdk）、vaapi(libva2.6.0)、ffmpeg、opencv（opencv4.2.0 测试通过，也可以使用其他版本的 OpenCV 但需要重新编译）
+
+硬件参数：
+
+CPU: Intel(R) Celeron(R) CPU N3450 @ 1.10GHz
+
+GPU: Intel(R) HD Graphics 500
+
+以下是执行 vainfo 的结果:
+
+~~~shell
+libva info: VA-API version 1.6.0
+libva info: User environment variable requested driver 'iHD'
+libva info: Trying to open /usr/lib/x86_64-linux-gnu/dri/iHD_drv_video.so
+libva info: Found init function __vaDriverInit_1_6
+libva info: va_openDriver() returns 0
+vainfo: VA-API version: 1.6 (libva 2.6.0)
+vainfo: Driver version: Intel iHD driver - 19.4.0
+vainfo: Supported profile and entrypoints
+      VAProfileNone                   :	VAEntrypointVideoProc
+      VAProfileNone                   :	VAEntrypointStats
+      VAProfileMPEG2Simple            :	VAEntrypointVLD
+      VAProfileMPEG2Main              :	VAEntrypointVLD
+      VAProfileH264Main               :	VAEntrypointVLD
+      VAProfileH264Main               :	VAEntrypointEncSlice
+      VAProfileH264Main               :	VAEntrypointFEI
+      VAProfileH264Main               :	VAEntrypointEncSliceLP
+      VAProfileH264High               :	VAEntrypointVLD
+      VAProfileH264High               :	VAEntrypointEncSlice
+      VAProfileH264High               :	VAEntrypointFEI
+      VAProfileH264High               :	VAEntrypointEncSliceLP
+      VAProfileVC1Simple              :	VAEntrypointVLD
+      VAProfileVC1Main                :	VAEntrypointVLD
+      VAProfileVC1Advanced            :	VAEntrypointVLD
+      VAProfileJPEGBaseline           :	VAEntrypointVLD
+      VAProfileJPEGBaseline           :	VAEntrypointEncPicture
+      VAProfileH264ConstrainedBaseline:	VAEntrypointVLD
+      VAProfileH264ConstrainedBaseline:	VAEntrypointEncSlice
+      VAProfileH264ConstrainedBaseline:	VAEntrypointFEI
+      VAProfileH264ConstrainedBaseline:	VAEntrypointEncSliceLP
+      VAProfileVP8Version0_3          :	VAEntrypointVLD
+      VAProfileHEVCMain               :	VAEntrypointVLD
+      VAProfileHEVCMain               :	VAEntrypointEncSlice
+      VAProfileHEVCMain               :	VAEntrypointFEI
+      VAProfileHEVCMain10             :	VAEntrypointVLD
+      VAProfileVP9Profile0            :	VAEntrypointVLD
+~~~
 
 编译命令：
 
