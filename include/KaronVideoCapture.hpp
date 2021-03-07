@@ -30,7 +30,8 @@ public:
 		Width, example: 1920
 		Height, example: 1080
 	*/
-	KaronVideoCapture(std::string VideoUrl, int Width, int Heigth);
+	KaronVideoCapture(std::string VideoUrl, int VideoWidth, int VideoHeigth);
+	KaronVideoCapture();
 	int GetVideoWidth();
 	int GetVideoHeight();
 	int GetVideoFps();
@@ -41,6 +42,8 @@ public:
 	cv::Mat GetVideoMat(int RetryCount = 1000);
 	bool IsOpened(int RetryCount = 1000);
 	void Release();
+	void Reopen();
+	void Open(std::string VideoUrl, int VideoWidth, int VideoHeight,bool IsReopen = false);
 	~KaronVideoCapture();
 
 private:

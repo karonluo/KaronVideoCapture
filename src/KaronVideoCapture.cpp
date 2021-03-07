@@ -13,7 +13,6 @@ void *KaronVideoCapture::lock(void *opaque, void **planes)
 	struct context *ctx = (context *)(opaque);
 	ctx->mtx.lock();
 	*planes = ctx->pixels;
-
 	return NULL;
 }
 void KaronVideoCapture::unlock(void *opaque, void *picture, void *const *planes)
@@ -43,7 +42,6 @@ void KaronVideoCapture::unlock(void *opaque, void *picture, void *const *planes)
 			printf("Convert to OpenCV Mat object was error: %s\r\n", errmsg);
 		}
 	}
-
 	ctx->mtx.unlock();
 }
 void KaronVideoCapture::show(void *opaque, void *picture)
@@ -51,13 +49,22 @@ void KaronVideoCapture::show(void *opaque, void *picture)
 	// CV_UNUSED(picture);
 	// (void)opaque;
 }
-KaronVideoCapture::KaronVideoCapture(std::string VideoUrl, int VideoWidth, int VideoHeight)
+KaronVideoCapture::KaronVideoCapture()
 {
-	printf("Karon Video Capture Version: 1.0\r\n");
+
+}
+void KaronVideoCapture::Open(std::string VideoUrl, int VideoWidth, int VideoHeight, bool IsReopen)
+{
+	if (!IsReopen)
+	{
+		printf("Karon Video Capture Version: 1.0\r\n");
+	}
+
 	printf("Video and system information\r\n");
 	printf("========================================\r\n");
 	printf("OpenCV Version: %s\r\n", cv::getVersionString().c_str());
 	printf("VideoLan Version: %s\r\n", libvlc_get_version());
+	
 	ctx.video_url = VideoUrl;
 	ctx.video_width = VideoWidth;
 	ctx.video_height = VideoHeight;
@@ -141,6 +148,10 @@ KaronVideoCapture::KaronVideoCapture(std::string VideoUrl, int VideoWidth, int V
 	}
 	printf("========================================\r\n");
 }
+KaronVideoCapture::KaronVideoCapture(std::string VideoUrl, int VideoWidth, int VideoHeight)
+{
+	Open(VideoUrl, VideoWidth, VideoHeight);
+}
 int KaronVideoCapture::GetVideoWidth()
 {
 	return ctx.video_width;
@@ -191,7 +202,7 @@ bool KaronVideoCapture::IsOpened(int RetryCount)
 	bool result = false;
 	for (int i = 0; i < RetryCount; i++)
 	{
-		usleep(25000);
+		usleep(1000000);
 		if (!ctx.frame.empty())
 		{
 			result = true;
@@ -199,6 +210,18 @@ bool KaronVideoCapture::IsOpened(int RetryCount)
 		}
 	}
 	return result;
+}
+void KaronVideoCapture::Reopen()
+{
+	Release();
+	if(!ctx.video_url.empty() && ctx.video_width!=0 && ctx.video_height!=0)
+	{
+		Open(ctx.video_url, ctx.video_width,ctx.video_height, true);
+	}
+	else
+	{
+		throw "Video can not reopen, please open video first.";
+	}
 }
 void KaronVideoCapture::Release()
 {
